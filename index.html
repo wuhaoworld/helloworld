@@ -56,7 +56,7 @@ window.addEventListener("message", function(event) {
           $("#image-list").append('<br/><a target="_blank" href="' + event.data.image_url + '">' + event.data.image_url + '</a><hr/>');
           console.log(event.data.image_url);
       }else{
-          $("#message").html('您需要先登录微博，<a href="http://weibo.com">去登录</a>');
+          $("#message").html('您需要先登录微博，<a target="_blank" href="http://weibo.com">去登录</a>');
           console.log(event.data.message);
       }
 
