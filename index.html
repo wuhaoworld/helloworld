@@ -39,29 +39,8 @@ window.addEventListener("message", function(event) {
         $("#message").html('已经安装了极简图床插件，截图后粘贴上传图片');
       }
   }
-}, false);  
-
-var id = Math.floor(Math.random()*10000);
-window.postMessage({ type: "CHECK_INSTALL", id:id}, "*");  
   
-// var extensionId = 'heebflcbemenefckkgfnnklbhdbdkagg';
-// detectExtension(extensionId, function(flag){
-//     if(flag){
-//         $("#message").html('已经安装了极简图床插件，截图后粘贴上传图片');
-//     }else{
-//         $("#message").html('还没有安装极简图床插件，<a target="_blank" href="https://chrome.google.com/webstore/detail/heebflcbemenefckkgfnnklbhdbdkagg">去安装</a>');
-//     }
-// });
-
-function uploadImg(imgdata){
-    var id = Math.floor(Math.random()*10000);
-    window.postMessage({ type: "FROM_PAGE", id:id , imgDataUrl: imgdata}, "*");
-    console.log(id);
-}
-
-window.addEventListener("message", function(event) {
-
-  if (event.data.type && (event.data.type == "FROM_PLUGIN")) {
+    if (event.data.type && (event.data.type == "FROM_PLUGIN")) {
       if(event.data.status == 'success'){
         //   event.data.id 就是上传时候传入的 ID 参数
           console.log(event.data.id);
@@ -73,19 +52,16 @@ window.addEventListener("message", function(event) {
       }
 
   }
-}, false);
+  
+}, false);  
 
-// 判断用户是否安装了插件的函数
-function detectExtension(extensionId, callback) {
-  var img;
-  img = new Image();
-  img.src = "chrome-extension://" + extensionId + "/image/setting.png";
-  img.onload = function() {
-    callback(true);
-  };
-  img.onerror = function() {
-    callback(false);
-  };
+var id = Math.floor(Math.random()*10000);
+window.postMessage({ type: "CHECK_INSTALL", id:id}, "*");  
+
+function uploadImg(imgdata){
+    var id = Math.floor(Math.random()*10000);
+    window.postMessage({ type: "FROM_PAGE", id:id , imgDataUrl: imgdata}, "*");
+    console.log(id);
 }
 </script>
 </body>
