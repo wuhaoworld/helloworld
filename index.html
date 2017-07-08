@@ -34,7 +34,7 @@ document.body.onpaste = function(e) {
 <script type="text/javascript">
 window.addEventListener("message", function(event) {
 
-  if (event.data.type && (event.data.type == "CHECK_INSTALL")) {
+  if (event.data.type && (event.data.type == "CHECK_INSTALL_RESPONSE")) {
       if(event.data.status == 'success'){
         $("#message").html('已经安装了极简图床插件，截图后粘贴上传图片');
       }
