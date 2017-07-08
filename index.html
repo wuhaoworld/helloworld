@@ -32,14 +32,27 @@ document.body.onpaste = function(e) {
 </script>
 
 <script type="text/javascript">
-var extensionId = 'heebflcbemenefckkgfnnklbhdbdkagg';
-detectExtension(extensionId, function(flag){
-    if(flag){
+var id = Math.floor(Math.random()*10000);
+window.postMessage({ type: "CHECK_INSTALL", id:id}, "*");
+
+window.addEventListener("message", function(event) {
+
+  if (event.data.type && (event.data.type == "CHECK_INSTALL")) {
+      if(event.data.status == 'success'){
         $("#message").html('已经安装了极简图床插件，截图后粘贴上传图片');
-    }else{
-        $("#message").html('还没有安装极简图床插件，<a target="_blank" href="https://chrome.google.com/webstore/detail/heebflcbemenefckkgfnnklbhdbdkagg">去安装</a>');
-    }
-});
+      }
+  }
+}, false);  
+  
+  
+// var extensionId = 'heebflcbemenefckkgfnnklbhdbdkagg';
+// detectExtension(extensionId, function(flag){
+//     if(flag){
+//         $("#message").html('已经安装了极简图床插件，截图后粘贴上传图片');
+//     }else{
+//         $("#message").html('还没有安装极简图床插件，<a target="_blank" href="https://chrome.google.com/webstore/detail/heebflcbemenefckkgfnnklbhdbdkagg">去安装</a>');
+//     }
+// });
 
 function uploadImg(imgdata){
     var id = Math.floor(Math.random()*10000);
