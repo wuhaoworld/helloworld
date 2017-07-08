@@ -32,9 +32,6 @@ document.body.onpaste = function(e) {
 </script>
 
 <script type="text/javascript">
-var id = Math.floor(Math.random()*10000);
-window.postMessage({ type: "CHECK_INSTALL", id:id}, "*");
-
 window.addEventListener("message", function(event) {
 
   if (event.data.type && (event.data.type == "CHECK_INSTALL")) {
@@ -43,7 +40,9 @@ window.addEventListener("message", function(event) {
       }
   }
 }, false);  
-  
+
+var id = Math.floor(Math.random()*10000);
+window.postMessage({ type: "CHECK_INSTALL", id:id}, "*");  
   
 // var extensionId = 'heebflcbemenefckkgfnnklbhdbdkagg';
 // detectExtension(extensionId, function(flag){
