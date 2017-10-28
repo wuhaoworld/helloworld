@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>极简图床演示</title>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+    <div class="" id="message">
+    </div>
+
+    <div class="" id="image-list">
+    </div>
+
+<script type="text/javascript">
+document.body.onpaste = function(e) {
+    var item = e.clipboardData.items[0];
+    if (item.kind == 'file' && item.type == 'image/png') {
+        var fileReader = new FileReader();
+        fileReader.onloadend = function (){
+            var img = document.createElement("img");
+            img.src= this.result;
+            console.log(this.result);
+            uploadImg(this.result);
+            $("#image-list").append(img);
+        }
+        var oBlob = item.getAsFile();
+        fileReader.readAsDataURL(oBlob);
+    }else{
+        // 非图片文件的逻辑，页面需要提示
+    }
+};
+</script>
+
+<script type="text/javascript">
+window.addEventListener("message", function(event) {
+
+  if (event.data.type && (event.data.type == "CHECK_INSTALL_RESPONSE")) {
+      if(event.data.status == 'success'){
+        $("#message").html('已经安装了极简图床插件，截图后粘贴上传图片');
+      }
+  }
+  
+    if (event.data.type && (event.data.type == "FROM_PLUGIN")) {
+      if(event.data.status == 'success'){
+        //   event.data.id 就是上传时候传入的 ID 参数
+          console.log(event.data.id);
+          $("#image-list").append('<br/><a target="_blank" href="' + event.data.image_url + '">' + event.data.image_url + '</a><hr/>');
+          console.log(event.data.image_url);
+      }else{
+          $("#message").html('您需要先登录微博，<a target="_blank" href="http://weibo.com">去登录</a>');
+          console.log(event.data.message);
+      }
+
+  }
+  
+}, false);  
+
+var id = Math.floor(Math.random()*10000);
+window.postMessage({ type: "CHECK_INSTALL", id:id}, "*");  
+
+function uploadImg(imgdata){
+    var id = Math.floor(Math.random()*10000);
+    window.postMessage({ type: "FROM_PAGE", id:id , imgDataUrl: imgdata}, "*");
+    console.log(id);
+}
+</script>
+</body>
+</html>
