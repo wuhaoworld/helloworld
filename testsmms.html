@@ -60,7 +60,7 @@ window.postMessage({ type: "CHECK_INSTALL", id:id}, "*");
 
 function uploadImg(imgdata){
     var id = Math.floor(Math.random()*10000);
-    window.postMessage({ type: "FROM_PAGE", id:id , imgDataUrl: imgdata}, "*");
+    window.postMessage({ type: "FROM_PAGE_SMMS", id:id , imgDataUrl: imgdata}, "*");
     console.log(id);
 }
 </script>
